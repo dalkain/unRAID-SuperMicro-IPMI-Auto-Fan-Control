@@ -103,6 +103,8 @@ cputemps=($cpu0temp $cpu1temp $cpu2temp $cpu3temp)
 
 ## DISK TEMPERATURE SENSORS
 # Update the entries below to point to your drives by label (/dev/sda, /dev/sdb, etc.)
+# If you have fewer than 8 drives:
+#      Update extra disk##temp lines as "disk##temp=0" -- don't comment them out to avoid further edits
 # If you have more than 24 drives:
 #      Add additional disk##temp variables below and ALSO add the new variables to the 'disktemps' array
 # If you do not want to monitor disk speeds
@@ -136,7 +138,7 @@ disk24temp=0
 
 disktemps=($disk01temp $disk02temp $disk03temp $disk04temp $disk05temp \
            $disk06temp $disk07temp $disk08temp $disk09temp $disk10temp \ 
-		   $disk11temp $disk12temp $disk13temp $disk14temp $disk15temp \ 
+           $disk11temp $disk12temp $disk13temp $disk14temp $disk15temp \ 
            $disk16temp $disk17temp $disk18temp $disk19temp $disk20temp \ 
            $disk21temp $disk22temp $disk23temp $disk24temp )
 
