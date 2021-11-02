@@ -11,6 +11,6 @@ Very basic rundown:
 - Set speeds of the fan zones based configurable temperature thresholds (5 speed settings)
 - Use cron to run the script every few minutes
 
-I rarely write bash scripts, and I was far too lazy to figure out how to properly write a dynamic curve and all that jazz.
+Full disclosure: I very rarely write bash scripts, and this is very elementary. I was also far too lazy to ever figure out how to properly write in a dynamic curve and all that jazz.
 
-Feel free to modify it to suit your needs -- GPLv3
+Feel free to modify it to suit your needs though!
