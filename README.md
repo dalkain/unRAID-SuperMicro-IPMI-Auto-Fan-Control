@@ -8,7 +8,7 @@ It started out as me having trouble getting tools designed to do this to work ri
 Very basic rundown:
 - Gather all of the CPU temps, determine max
 - Gather all of the HDD temps, determine max
-- Set speeds of the fan zones based configurable temperature thresholds (5 speeds settings)
+- Set speeds of the fan zones based configurable temperature thresholds (5 speed settings)
 - Use cron to run the script every few minutes
 
 I rarely write bash scripts, and I was far too lazy to figure out how to properly write a dynamic curve and all that jazz.
