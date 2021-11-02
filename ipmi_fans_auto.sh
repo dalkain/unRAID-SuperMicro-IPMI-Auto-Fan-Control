@@ -64,6 +64,7 @@ disk_thresh_crit=60
 #
 # SuperMicro IPMI fan duty cycles are set with a value between '0x00'-'0x64'
 # EXAMPLES: 0x00 = 0% duty cycle, 0x32 = 50%, 0x64 = 100%
+# NOTE: 'cool' cycles are for when temperatures are below 'hot1' thresholds
 #
 # CPU Fan Duty Cycles 
 fan_cpus_cool='0x32'
