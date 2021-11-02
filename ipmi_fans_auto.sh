@@ -4,7 +4,7 @@
 #noParity=false
 
 # SuperMicro IPMI Auto(-ish) Fan Control
-# Check current CPU package temps and updates fan duty cycles based on adjustable thresholds
+# Checks current CPU package temps and Disk temps and updates fan duty cycles based on adjustable thresholds
 # 
 # This requires ipmitool to be installed (Unraid users: install this through the NerdPack GUI plugin)
 #
