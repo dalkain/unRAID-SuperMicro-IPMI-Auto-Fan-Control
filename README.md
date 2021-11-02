@@ -1,4 +1,4 @@
-# Unraid-SuperMicro-IPMI-Auto-Fan-Control
+# Unraid SuperMicro IPMI Auto Fan Control
 A dirty little bash script I made to automate control of the fan speeds for a SuperMicro board using ipmitool. 
 
 This pair of scripts is designed for Unraid's "User Scripts" plugin, though I'm sure it can be easily adapted to other linux systems.
