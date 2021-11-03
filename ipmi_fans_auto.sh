@@ -145,14 +145,15 @@ disktemps=($disk01temp $disk02temp $disk03temp $disk04temp $disk05temp \
 ##################################################
 #####  YOU DO NOT NEED TO MODIFY BELOW THIS  #####
 ##################################################
-# Gets the maximum CPU package temp
-maxcputemp=0
-for cputemp in ${cputemps[@]}; do
-	if (( $cputemp > 0 )); then echo "CPU temp found: " $cputemp; fi;
-	if (( $cputemp > $maxcputemp )); then maxcputemp=$cputemp; fi; 
-done
-echo "Max CPU Package temp determined: " $maxcputemp
+get_max_number() {
+    printf "%s\n" "$@" | sort -gr | head -n1
+}
 
+# Gets the maximum CPU package temp
+echo "CPU temps found: " ${cputemps[@]}
+maxcputemp="$(get_max_number ${cputemps[@]})"
+echo "Max CPU Package temp determined: " $maxcputemp
+# Get CPU temperature threshold
 if [[ $maxcputemp -ge $cpu_thresh_hot1 ]]
 then
   if [[ $maxcputemp -ge $cpu_thresh_hot2 ]]
@@ -180,14 +181,12 @@ else
   found_cpu_threshold=0
 fi
 
-# Gets the maximum disk temp
-maxdisktemp=0
-for disktemp in ${disktemps[@]}; do
-    if (( $disktemp > 0 )); then echo "Disk temp found: " $disktemp; fi;
-    if (( $disktemp > $disktemps )); then maxdisktemp=$disktemp; fi; 
-done
-echo "Max disk temp determined: " $maxdisktemp
 
+# Gets the maximum Disk temp
+echo "Disk temps found: " ${disktemps[@]}
+maxdisktemp="$(get_max_number ${disktemps[@]})"
+echo "Max Disk temp determined: " $maxdisktemp
+# Get disk temperature threshold
 if [[ $maxdisktemp -ge $disk_thresh_hot1 ]]
 then
   if [[ $maxdisktemp -ge $disk_thresh_hot2 ]]
