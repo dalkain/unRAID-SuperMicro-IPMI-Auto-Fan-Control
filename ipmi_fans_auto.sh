@@ -107,7 +107,8 @@ cputemps=($cpu0temp $cpu1temp $cpu2temp $cpu3temp)
 #      Update extra disk##temp lines as "disk##temp=0" -- don't comment them out to avoid further edits
 # If you have more than 24 drives:
 #      Add additional disk##temp variables below and ALSO add the new variables to the 'disktemps' array
-# If you do not want to monitor disk speeds
+# If you do not want to monitor disk temps
+#      Just set all of the disk##temp variables below to =0
 
 #disktemexample=$(smartctl -A /dev/sdx | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
 disk01temp=$(smartctl -A /dev/sdb | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
