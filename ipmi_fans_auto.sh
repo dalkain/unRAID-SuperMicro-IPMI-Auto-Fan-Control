@@ -228,7 +228,7 @@ then
 else
 #  # If disk temp threshold is higher than cpu threshold,
 #  # set the peripheral zone speed to the disk threshold
-#  new_peri_fan_speed=$found_disk_threshold
+  new_peri_fan_speed=$found_disk_threshold
 fi
   
 ## APPLY THE FAN SPEEDS
