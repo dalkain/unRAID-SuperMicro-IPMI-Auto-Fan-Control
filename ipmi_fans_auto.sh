@@ -220,16 +220,16 @@ new_cpu_fan_speed=$found_cpu_threshold
 # Peripheral zone gets set to the greater of the thresholds found
 new_peri_fan_speed="$(get_max_number $found_cpu_threshold $found_disk_threshold)"
 
-#if [[ $found_cpu_threshold -ge $found_disk_threshold ]]
-#then
+if [[ $found_cpu_threshold -ge $found_disk_threshold ]]
+then
 #  # If cpu temp threshold is higher than disk threshold,
 #  # set the peripheral zone speed to the cpu threshold
-#  new_peri_fan_speed=$found_cpu_threshold
-#else
+  new_peri_fan_speed=$found_cpu_threshold
+else
 #  # If disk temp threshold is higher than cpu threshold,
 #  # set the peripheral zone speed to the disk threshold
 #  new_peri_fan_speed=$found_disk_threshold
-#fi
+fi
   
 ## APPLY THE FAN SPEEDS
 if [[ $new_cpu_fan_speed == 4 ]]; then ipmitool raw 0x30 0x70 0x66 0x01 0x00 $fan_cpus_crit; fi
