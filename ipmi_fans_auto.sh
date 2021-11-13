@@ -67,18 +67,18 @@ disk_thresh_crit=60
 # NOTE: 'cool' cycles are for when temperatures are below 'hot1' thresholds
 #
 # CPU Fan Duty Cycles 
-fan_cpus_cool='0x32'
-fan_cpus_hot1='0x36'
-fan_cpus_hot2='0x40'
-fan_cpus_hot3='0x48'
-fan_cpus_crit='0x56'
+fan_cpus_cool='0x08'
+fan_cpus_hot1='0x12'
+fan_cpus_hot2='0x20'
+fan_cpus_hot3='0x28'
+fan_cpus_crit='0x36'
 
 # Peripheral Fan Duty Cycles 
-fan_peri_cool='0x32'
-fan_peri_hot1='0x36'
-fan_peri_hot2='0x40'
-fan_peri_hot3='0x48'
-fan_peri_crit='0x56'
+fan_peri_cool='0x08'
+fan_peri_hot1='0x12'
+fan_peri_hot2='0x20'
+fan_peri_hot3='0x28'
+fan_peri_crit='0x36'
 
 
 ## CPU PACKAGE TEMPERATURE SENSORS
@@ -107,8 +107,7 @@ cputemps=($cpu0temp $cpu1temp $cpu2temp $cpu3temp)
 #      Update extra disk##temp lines as "disk##temp=0" -- don't comment them out to avoid further edits
 # If you have more than 24 drives:
 #      Add additional disk##temp variables below and ALSO add the new variables to the 'disktemps' array
-# If you do not want to monitor disk temps
-#      Just set all of the disk##temp variables below to =0
+# If you do not want to monitor disk speeds
 
 #disktemexample=$(smartctl -A /dev/sdx | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
 disk01temp=$(smartctl -A /dev/sdb | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
@@ -220,48 +219,27 @@ fi
 new_cpu_fan_speed=$found_cpu_threshold
 # Peripheral zone gets set to the greater of the thresholds found
 new_peri_fan_speed="$(get_max_number $found_cpu_threshold $found_disk_threshold)"
+
+#if [[ $found_cpu_threshold -ge $found_disk_threshold ]]
+#then
+#  # If cpu temp threshold is higher than disk threshold,
+#  # set the peripheral zone speed to the cpu threshold
+#  new_peri_fan_speed=$found_cpu_threshold
+#else
+#  # If disk temp threshold is higher than cpu threshold,
+#  # set the peripheral zone speed to the disk threshold
+#  new_peri_fan_speed=$found_disk_threshold
+#fi
   
 ## APPLY THE FAN SPEEDS
-if [[ $new_cpu_fan_speed == 1 ]]
-then
-  if [[ $new_cpu_fan_speed == 2 ]]
-  then
-    if [[ $new_cpu_fan_speed == 3 ]]
-    then
-      if [[ $new_cpu_fan_speed == 4 ]]
-      then
-        ipmitool raw 0x30 0x70 0x66 0x01 0x00 $fan_cpus_crit
-      else    
-        ipmitool raw 0x30 0x70 0x66 0x01 0x00 $fan_cpus_hot3
-      fi
-    else
-      ipmitool raw 0x30 0x70 0x66 0x01 0x00 $fan_cpus_hot2
-    fi
-  else
-    ipmitool raw 0x30 0x70 0x66 0x01 0x00 $fan_cpus_hot1
-  fi
-else
-  ipmitool raw 0x30 0x70 0x66 0x01 0x00 $fan_cpus_cool
-fi
+if [[ $new_cpu_fan_speed == 4 ]]; then ipmitool raw 0x30 0x70 0x66 0x01 0x00 $fan_cpus_crit; fi
+if [[ $new_cpu_fan_speed == 3 ]]; then ipmitool raw 0x30 0x70 0x66 0x01 0x00 $fan_cpus_hot3; fi
+if [[ $new_cpu_fan_speed == 2 ]]; then ipmitool raw 0x30 0x70 0x66 0x01 0x00 $fan_cpus_hot2; fi
+if [[ $new_cpu_fan_speed == 1 ]]; then ipmitool raw 0x30 0x70 0x66 0x01 0x00 $fan_cpus_hot1; fi
+if [[ $new_cpu_fan_speed == 0 ]]; then ipmitool raw 0x30 0x70 0x66 0x01 0x00 $fan_cpus_cool; fi
 sleep 1
-if [[ $new_peri_fan_speed == 1 ]]
-then
-  if [[ $new_peri_fan_speed == 2 ]]
-  then
-    if [[ $new_peri_fan_speed == 3 ]]
-    then
-      if [[ $new_peri_fan_speed == 4 ]]
-      then
-        ipmitool raw 0x30 0x70 0x66 0x01 0x01 $fan_peri_crit
-      else    
-        ipmitool raw 0x30 0x70 0x66 0x01 0x01 $fan_peri_hot3
-      fi
-    else
-      ipmitool raw 0x30 0x70 0x66 0x01 0x01 $fan_peri_hot2
-    fi
-  else
-    ipmitool raw 0x30 0x70 0x66 0x01 0x01 $fan_peri_hot1
-  fi
-else
-  ipmitool raw 0x30 0x70 0x66 0x01 0x01 $fan_peri_cool 
-fi
+if [[ $new_peri_fan_speed == 4 ]]; then ipmitool raw 0x30 0x70 0x66 0x01 0x01 $fan_peri_crit; fi
+if [[ $new_peri_fan_speed == 4 ]]; then ipmitool raw 0x30 0x70 0x66 0x01 0x01 $fan_peri_hot3; fi
+if [[ $new_peri_fan_speed == 4 ]]; then ipmitool raw 0x30 0x70 0x66 0x01 0x01 $fan_peri_hot2; fi
+if [[ $new_peri_fan_speed == 4 ]]; then ipmitool raw 0x30 0x70 0x66 0x01 0x01 $fan_peri_hot1; fi
+if [[ $new_peri_fan_speed == 4 ]]; then ipmitool raw 0x30 0x70 0x66 0x01 0x01 $fan_peri_cool; fi
