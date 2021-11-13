@@ -15,9 +15,6 @@
 # It is recommended to use a separate script (see below) to force "Full Speed Mode" on startup 
 # instead of adding that command in this script. If you put the required command in this script, 
 # then your fans will always go to max speed for a second every time this script runs.
-#
-# NOTE: This will only use CPU package temperatures to determine what fan speeds should be set, 
-# but advanced users should be able to adapt this to other sensors easily enough.
 
 ###########################
 ## STARTUP COMPANION SCRIPT
