@@ -8,10 +8,10 @@ It started out as me having trouble getting tools designed to do this to work ri
 Very basic rundown:
 - Gather all of the CPU temps, determine max
 - Gather all of the HDD temps, determine max
-- Set speeds of the fan zones based configurable temperature thresholds (5 speed settings)
+- Set speeds of the fan zones based configurable temperature thresholds (5 speed settings per fan zone)
 - Use cron to run the script every few minutes
 
-NOTE: These checks will be considered activity and cause your drives to spin up or stay spinning! 
-If you have your drives set to spin down automatically in Unraid, I highly recommend disabling all of the HDD temps
+NOTE: These checks will be considered drive activity and cause your drives to spin up or stay spinning! 
+If you have your drives set to spin down automatically in Unraid, I highly recommend disabling all of the HDD temps and just basing this off of your CPU temps.
 
 Full disclosure: I very rarely write bash scripts, and this is very elementary. Feel free to modify it to suit your needs though!
