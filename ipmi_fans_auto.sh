@@ -23,7 +23,7 @@
 # mode on startup. If you try to put the required command at the beginning of this script, 
 # then your fans will ramp to max speed for a second every single time this script runs.
 # That will cause a bunch of annoying sound level changes and prematurely wear out fans.
-# UNRAID: use the "User Scripts" plugin to run the companion script on Array Startup
+# UNRAID: use "User Scripts" to run the companion script 'At Startup of Array'
 ####################
 
 
