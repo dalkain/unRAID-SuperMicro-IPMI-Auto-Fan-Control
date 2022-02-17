@@ -15,3 +15,5 @@ NOTE: These checks will be considered drive activity and cause your drives to sp
 If you have your drives set to spin down automatically in Unraid, I highly recommend disabling all of the HDD temps and just basing this off of your CPU temps.
 
 Full disclosure: I very rarely write bash scripts, and this is very elementary. Feel free to modify it to suit your needs though!
+
+I'm currently using this on 6.10.0-rc2, I know there was a minor (but breaking) change to the awk escapes when I upgraded from 6.9.2 and I can probably help revert it if needed.
