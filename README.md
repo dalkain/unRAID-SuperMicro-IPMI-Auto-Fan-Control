@@ -3,7 +3,7 @@ A dirty little bash script I made to automate control of the fan speeds for a Su
 
 This pair of scripts is specifically designed for Unraid's "User Scripts" plugin, though I'm sure it can be easily adapted to other linux systems. You'd most likely just need to detemrine the best way to retrieve the CPU/HDD temps for your linux flavor of choice.
 
-It started out as me having trouble getting tools designed to do this to work right and just being very tired of loud fans. I still wanted the fans to crank up when heavy processing was being done. I fleshed it out a bit and added in-line comment instructions on how to modify it to suit your own needs.
+It started out as me having trouble getting tools designed to do this to work right and just being very tired of loud fans (especially since my server is in my home office). I still wanted the fans to crank up some when heavy processing was being done. I fleshed it out a bit and added in-line comment instructions on how to modify it to suit your own needs.
 
 Very basic rundown:
 - Gather all of the CPU temps, determine max
