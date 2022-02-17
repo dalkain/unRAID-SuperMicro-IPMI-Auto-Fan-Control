@@ -1,5 +1,4 @@
 #!/bin/bash
-#arrayStarted=true
 #clearLog=true
 #noParity=false
 
