@@ -16,9 +16,9 @@
 # instead of adding that command in this script. If you put the required command in this script, 
 # then your fans will always go to max speed for a second every time this script runs.
 
-###########################
-## STARTUP COMPANION SCRIPT
-## Copy this commented portion into its own **SEPARATE** script that runs on startup.
+######################################################
+## STARTUP COMPANION SCRIPT (ipmi_fans_startup.sh)
+## Copy this entire portion into its own **SEPARATE** script that runs on startup.
 ## (Unraid users: Use "User Scripts" and set to run on array startup)
 ## This will ensure the IPMI fan mode is always on the required "Full Speed" mode, which
 ## is a requirement to manually adjust fan speeds via ipmitool for SuperMicro IPMI
@@ -33,7 +33,7 @@
 #sleep 1
 ## Peripheral Zone duty cycle to 50%
 #ipmitool raw 0x30 0x70 0x66 0x01 0x01 0x32
-###########################
+######################################################
 
 
 ## TEMPERATURE THRESHOLDS
