@@ -4,36 +4,29 @@
 #noParity=false
 
 # SuperMicro IPMI Auto(-ish) Fan Control
-# Checks current CPU package temps and Disk temps and updates fan duty cycles based on adjustable thresholds
+#
+# This script checks current CPU package temps and Disk temps, then updates 
+# fan duty cycles based on adjustable thresholds. It was designed for Unraid,
+# but should be adaptable with minimal work to your linux flavor of choice
 # 
-# This requires ipmitool to be installed (Unraid users: install this through the NerdPack GUI plugin)
+# This requires "ipmitool" to be installed on your system
+# UNRAID: You can install this through the "NerdPack GUI" plugin
 #
-# It is HIGHLY recommended to set this script to run on a cron schedule (e.g. "*/5 * * * *" for every 5 minutes)
-# If set using the "User Scripts" plugin on Unraid, this will not store logs other than the most recent run.
+# It is HIGHLY recommended to set this script to run on a cron schedule
+# (e.g. "*/5 * * * *" for every 5 minutes)
+# UNRAID: Choose "Custom" scheduling in User Scripts to set a cron schedule
 #
-# NOTE: The SuperMicro IPMI fan mode -MUST- be set to "Full Speed Mode" for ipmitool to control fan speeds
-# It is recommended to use a separate script (see below) to force "Full Speed Mode" on startup 
-# instead of adding that command in this script. If you put the required command in this script, 
-# then your fans will always go to max speed for a second every time this script runs.
-
-######################################################
-## STARTUP COMPANION SCRIPT (ipmi_fans_startup.sh)
-## Copy this entire portion into its own **SEPARATE** script that runs on startup.
-## (Unraid users: Use "User Scripts" and set to run on array startup)
-## This will ensure the IPMI fan mode is always on the required "Full Speed" mode, which
-## is a requirement to manually adjust fan speeds via ipmitool for SuperMicro IPMI
-## (You MUST uncomment the five lines below with a single #)
-##
-## Set IPMI fan mode to "full"
-#ipmitool raw 0x30 0x45 0x01 0x01
-#sleep 1
-## final value below is duty cycle (0x00-0x64)
-## CPU Zone duty cycle to 50%
-#ipmitool raw 0x30 0x70 0x66 0x01 0x00 0x32
-#sleep 1
-## Peripheral Zone duty cycle to 50%
-#ipmitool raw 0x30 0x70 0x66 0x01 0x01 0x32
-######################################################
+# UNRAID: This script should not store any logs other than the most recent run.
+#
+####################
+# VERY IMPORTANT: SuperMicro boards -REQUIRE- the fan mode be set to "Full Speed Mode"
+# for ipmitool to be able to control fan speeds. It is therefore recommended to use the 
+# companion script I've included in this repository (ipmi_fans_startup.sh) to force this 
+# mode on startup. If you try to put the required command at the beginning of this script, 
+# then your fans will ramp to max speed for a second every single time this script runs.
+# That will cause a bunch of annoying sound level changes and prematurely wear out fans.
+# UNRAID: use the "User Scripts" plugin to run the companion script on Array Startup
+####################
 
 
 ## TEMPERATURE THRESHOLDS
@@ -48,9 +41,9 @@ cpu_thresh_crit=80
 # Disk thresholds will only change the peripheral fan zone,
 # and only if higher disk threshold than the CPU threshold
 disk_thresh_hot1=45
-disk_thresh_hot2=50
-disk_thresh_hot3=55
-disk_thresh_crit=60
+disk_thresh_hot2=48
+disk_thresh_hot3=51
+disk_thresh_crit=55
 
 ## FAN DUTY CYCLES
 #
@@ -63,19 +56,19 @@ disk_thresh_crit=60
 # EXAMPLES: 0x00 = 0% duty cycle, 0x32 = 50%, 0x64 = 100%
 # NOTE: 'cool' cycles are for when temperatures are below 'hot1' thresholds
 #
-# CPU Fan Duty Cycles 
-fan_cpus_cool='0x08'
-fan_cpus_hot1='0x12'
-fan_cpus_hot2='0x20'
-fan_cpus_hot3='0x28'
-fan_cpus_crit='0x36'
+# CPU Fan Zone Duty Cycles 
+fan_cpus_cool='0x04'
+fan_cpus_hot1='0x08'
+fan_cpus_hot2='0x16'
+fan_cpus_hot3='0x20'
+fan_cpus_crit='0x28'
 
-# Peripheral Fan Duty Cycles 
-fan_peri_cool='0x08'
-fan_peri_hot1='0x12'
-fan_peri_hot2='0x20'
-fan_peri_hot3='0x28'
-fan_peri_crit='0x36'
+# Peripheral Fan Zone Duty Cycles 
+fan_peri_cool='0x04'
+fan_peri_hot1='0x08'
+fan_peri_hot2='0x16'
+fan_peri_hot3='0x20'
+fan_peri_crit='0x28'
 
 
 ## CPU PACKAGE TEMPERATURE SENSORS
@@ -90,8 +83,8 @@ fan_peri_crit='0x36'
 #      Add additional cpu#temp variables below and ALSO add the new variables to the 'cputemps' array
 
 #cputempexample=$(sensors -j | jq '. | {temp1_input: ."coretemp-isa-0000"."Package id 0".temp1_input}' | awk 'match($0,/\"temp1_input\": ([0-9]+)/,a){print a[1]}')
-cpu0temp=$(sensors -j | jq '. | {temp1_input: ."coretemp-isa-0000"."Package id 0".temp1_input}' | awk 'match($0,/\"temp1_input\": ([0-9]+)/,a){print a[1]}')
-cpu1temp=$(sensors -j | jq '. | {temp1_input: ."coretemp-isa-0001"."Package id 1".temp1_input}' | awk 'match($0,/\"temp1_input\": ([0-9]+)/,a){print a[1]}')
+cpu0temp=$(sensors -j | jq '. | {temp1_input: ."coretemp-isa-0000"."Package id 0".temp1_input}' | awk 'match($0,/"temp1_input": ([0-9]+)/,a){print a[1]}')
+cpu1temp=$(sensors -j | jq '. | {temp1_input: ."coretemp-isa-0001"."Package id 1".temp1_input}' | awk 'match($0,/"temp1_input": ([0-9]+)/,a){print a[1]}')
 cpu2temp=0
 cpu3temp=0
 
@@ -107,14 +100,14 @@ cputemps=($cpu0temp $cpu1temp $cpu2temp $cpu3temp)
 # If you do not want to monitor disk speeds
 
 #disktemexample=$(smartctl -A /dev/sdx | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
-disk01temp=$(smartctl -A /dev/sdb | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
-disk02temp=$(smartctl -A /dev/sdc | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
-disk03temp=$(smartctl -A /dev/sdd | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
-disk04temp=$(smartctl -A /dev/sde | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
-disk05temp=$(smartctl -A /dev/sdf | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
-disk06temp=$(smartctl -A /dev/sdg | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
-disk07temp=$(smartctl -A /dev/sdh | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
-disk08temp=$(smartctl -A /dev/sdj | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
+disk01temp=$(smartctl -A /dev/sdj | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
+disk02temp=$(smartctl -A /dev/sdi | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
+disk03temp=$(smartctl -A /dev/sdg | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
+disk04temp=$(smartctl -A /dev/sdf | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
+disk05temp=$(smartctl -A /dev/sde | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
+disk06temp=$(smartctl -A /dev/sdb | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
+disk07temp=$(smartctl -A /dev/sdd | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
+disk08temp=$(smartctl -A /dev/sdc | awk 'BEGIN{t="*"} $1==190||$1==194{t=$10;exit};$1=="Temperature:"{t=$2;exit} END{print t}')
 disk09temp=0
 disk10temp=0
 disk11temp=0
@@ -139,9 +132,9 @@ disktemps=($disk01temp $disk02temp $disk03temp $disk04temp $disk05temp \
            $disk16temp $disk17temp $disk18temp $disk19temp $disk20temp \ 
            $disk21temp $disk22temp $disk23temp $disk24temp )
 
-##################################################
-#####  YOU DO NOT NEED TO MODIFY BELOW THIS  #####
-##################################################
+#####################################################
+#####  YOU SHOULDN'T NEED TO MODIFY BELOW THIS  #####
+#####################################################
 get_max_number() {
     printf "%s\n" "$@" | sort -gr | head -n1
 }
