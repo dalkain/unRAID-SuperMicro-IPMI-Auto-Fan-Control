@@ -4,8 +4,7 @@
 
 # Startup companion script for ipmi_fans_auto.sh
 #
-# This separate script must run on startup and sets 
-# the fan speed mode to "Full Speed Mode"
+# This separate script must run on startup and sets the fan speed mode to "Full Speed Mode"
 # UNRAID USERS: Add this to "User Scripts" and set to run 'At Startup of Array'
 #
 ####################
