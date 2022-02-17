@@ -16,8 +16,6 @@
 # (e.g. "*/5 * * * *" for every 5 minutes)
 # UNRAID: Choose "Custom" scheduling in User Scripts to set a cron schedule
 #
-# UNRAID: This script should not store any logs other than the most recent run.
-#
 ####################
 # VERY IMPORTANT: SuperMicro boards -REQUIRE- the fan mode be set to "Full Speed Mode"
 # for ipmitool to be able to control fan speeds. It is therefore recommended to use the 
