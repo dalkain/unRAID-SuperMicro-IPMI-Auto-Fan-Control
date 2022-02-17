@@ -1,8 +1,8 @@
 ###########################
 ## STARTUP COMPANION SCRIPT
-## Copy this commented portion into its own **SEPARATE** script that runs on startup.
+## This separate script must run on startup.
 ## (Unraid users: Use "User Scripts" and set to run on array startup)
-## This will ensure the IPMI fan mode is always on the required "Full Speed" mode, which
+## This will ensure the IPMI fan mode is always set to "Full Speed" mode, which
 ## is a requirement to manually adjust fan speeds via ipmitool for SuperMicro IPMI
 ##
 ## Set IPMI fan mode to "full"
