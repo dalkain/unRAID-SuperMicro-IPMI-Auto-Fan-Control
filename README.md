@@ -1,5 +1,6 @@
 # Unraid SuperMicro IPMI Auto Fan Control
-A dirty little bash script I made to automate control of the fan speeds for a SuperMicro board using ipmitool. 
+
+A pair of dirty little bash scripts I made to automate control of the fan speeds for a SuperMicro board using ipmitool. 
 
 This pair of scripts is specifically designed for Unraid's "User Scripts" plugin, though I'm sure it can be easily adapted to other linux systems. You'd most likely just need to detemrine the best way to retrieve the CPU/HDD temps for your linux flavor of choice.
 
@@ -16,4 +17,4 @@ If you have your drives set to spin down automatically in Unraid, I highly recom
 
 Full disclosure: I very rarely write bash scripts, and this is very elementary. Feel free to modify it to suit your needs though!
 
-I'm currently using this on 6.10.0-rc2, I know there was a minor (but breaking) change to the awk escapes when I upgraded from 6.9.2 and I can probably help revert it if needed.
+I'm currently using this on 6.10.0-rc2, I know there was a minor (but breaking) change to the awk syntax when I upgraded from 6.9.2 and I can probably help revert it if needed.
