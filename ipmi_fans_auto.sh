@@ -10,7 +10,7 @@
 # but should be adaptable to your linux flavor of choice with some knowhow
 # 
 # This requires "ipmitool" to be installed on your system
-# You can install this through the "NerdPack GUI" plugin
+# Unraid users can install this through the "NerdPack GUI" plugin
 #
 # It is HIGHLY recommended to set this script to run on a cron schedule
 # to be most effective (e.g. "*/5 * * * *" for every 5 minutes)
