@@ -30,8 +30,8 @@
 #
 # Guide to navigate (line prefixes):
 #
-# ##### - Section header, documentation
-# ###   - Variable to configure
+# ##### - Section header, documentation/explanation
+# ###   - Variable to configure will be below
 # ##    - Example configuration line(s)
 #
 
