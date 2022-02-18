@@ -112,7 +112,7 @@ list_drives_ignored=("flash" "cache_nvme")
 #    and replace them in the cpu#temp variable(s) below
 #
 # To add MORE than 4 CPU sensors, you must add additional cpu#temp variables below 
-#    and also add the ne variables into the cputemps array
+#    and also add the new variables into the cputemps array below the list
 #
 ## example: cpu0temp=$(sensors -j | jq '. | {temp1_input: ."coretemp-isa-0000"."Package id 0".temp1_input}' | awk 'match($0,/\"temp1_input\": ([0-9]+)/,a){print a[1]}')
 cpu0temp=$(sensors -j | jq '. | {temp1_input: ."coretemp-isa-0000"."Package id 0".temp1_input}' | awk 'match($0,/"temp1_input": ([0-9]+)/,a){print a[1]}')
@@ -123,9 +123,9 @@ cpu3temp=$(sensors -j | jq '. | {temp1_input: ."coretemp-isa-0003"."Package id 3
 cputemps=($cpu0temp $cpu1temp $cpu2temp $cpu3temp)
 
 
-##############################################
-###  YOU DO NOT NEED TO MODIFY BELOW THIS  ###
-##############################################
+#####################################################################
+###  YOU DO NOT NEED TO MODIFY BELOW THIS IF YOU ARE USING UNRAID ###
+#####################################################################
 get_max_number() {
     printf "%s\n" "$@" | sort -gr | head -n1
 }
