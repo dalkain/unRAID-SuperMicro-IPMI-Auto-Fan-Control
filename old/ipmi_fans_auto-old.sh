@@ -3,6 +3,15 @@
 #clearLog=true
 #noParity=false
 
+
+#####################################################################################
+# Mostly just here in case I need to reference it. This had the old even dirtier    #
+# method of pulling drive temps through smartctl which, while far more universal    #
+# for other linux flavors, causes drives to spin up or stay spun up if you utilize  #
+# auto-spin down in Unraid. I do not recommend this script for Unraid users.        #
+#####################################################################################
+
+
 # SuperMicro IPMI Auto(-ish) Fan Control
 #
 # This script checks current CPU package temps and Disk temps, then updates 
