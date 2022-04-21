@@ -14,4 +14,4 @@ Very basic rundown of what this does:
 
 Full disclosure: I very rarely write bash scripts, but this gets the job done. Feel free to modify it to suit your needs!
 
-I'm currently using these on 6.10.0-rc4. I do remember there being a minor (but breaking) change to the awk syntax when I upgraded from 6.9.2 and I can probably help revert it if needed.
+I'm currently using these on 6.10.0-rc4. I do remember there being a minor (but breaking) change to the awk syntax when I upgraded from 6.9.2.
