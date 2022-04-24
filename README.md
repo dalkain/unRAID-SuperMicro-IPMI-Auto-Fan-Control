@@ -1,13 +1,13 @@
 # unRAID SuperMicro IPMI Auto Fan Control
 A pair of dirty little bash scripts to automate control of the fan speeds for a SuperMicro board using ipmitool. 
 
-## Why?
-It started out quite awhile ago with me having trouble getting plugins/tools designed to do this to work right and just being very tired of loud fans (especially since my server is in my home office). I still wanted the fans to crank up some when heavy processing was being done, though I certainly don't need anywhere near the full throughput of those stock supermicro fans or the Dynatron CPU coolers I have installed. It's evolved over time and I've added in-line comment instructions on how to modify it to suit your own needs.
-
 ## What does it do?
 - Gather all of the CPU package temps, determine max
 - Gather all of the drive temps, determine max
 - Set speeds of the fan zones based configurable temperature thresholds (5 speed settings per fan zone)
+
+## Why?
+It started out quite awhile ago with me having trouble getting plugins/tools designed to do this to work right and just being very tired of loud fans (especially since my server is in my home office). I still wanted the fans to crank up some when heavy processing was being done, though I certainly don't need anywhere near the full throughput of those stock supermicro fans or the Dynatron CPU coolers I have installed. It's evolved over time and I've added in-line comment instructions on how to modify it to suit your own needs.
 
 ## How to run:
 This pair of scripts is specifically designed for unRAID's 'User Scripts' plugin. 
