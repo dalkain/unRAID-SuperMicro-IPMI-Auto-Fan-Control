@@ -20,5 +20,6 @@ This pair of scripts is specifically designed for unRAID's 'User Scripts' plugin
   - Set to run 'Custom' and define a cron schedule in the field to run regularly (e.g. `*/5 * * * *` for every 5 minutes)
 
 ### Other Notes:
-- I'm currently using these on 6.10.0-rc4. I do remember there being a minor (but breaking) change to the awk syntax when I upgraded from 6.9.2.
+- The server I used these scripts with had an X10DRi-T4+ motherboard. I have decommissioned that server and I am no longer actively using these scripts.
+- I've used/tested these up to unRAID v6.10.3. I do remember there being a minor (but breaking) change to the awk syntax when I upgraded from 6.9.2.
 - While this was designed for and only works out-of-the-box with unRAID I'm sure it can be adapted to other linux systems with a bit of knowhow. You'd need to update how the script retrieves the CPU/HDD temps for your linux flavor of choice, but the ipmitool portions should work fine.
