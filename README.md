@@ -15,6 +15,7 @@ This pair of scripts is specifically designed for unRAID's 'User Scripts' plugin
 - Install **ipmitool** (can be installed via the NerdPack GUI plugin)
 - Add impi_fans_startup.sh to User Scripts
   - Set to run 'At Startup of Array'
+    - _NOTE: If do not want to restart your server/array after adding this script, you must also manually run ipmi_fans_startup.sh one time to force the required fan modes_
 - Add ipmi_fans_auto.sh to User Scripts
   - Edit parameters within the script (read script comments for instructions) to suit your needs
   - Set to run 'Custom' and define a cron schedule in the field to run regularly (e.g. `*/5 * * * *` for every 5 minutes)
