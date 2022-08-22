@@ -1,3 +1,5 @@
+**NO LONGER ACTIVELY MAINTAINED**
+
 # unRAID SuperMicro IPMI Auto Fan Control
 A pair of dirty little bash scripts to automate control of the fan speeds for a SuperMicro board using ipmitool. 
 
