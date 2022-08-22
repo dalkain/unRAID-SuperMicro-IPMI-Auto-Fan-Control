@@ -1,4 +1,5 @@
 # **NO LONGER ACTIVELY MAINTAINED**
+**This repository is being archived. As I am no longer running a SuperMicro server, I will not be making any further updates nor providing any troubleshooting assistance. Feel free to use/fork/modify/whatever as long as the GPLv3 license is followed.**
 
 # unRAID SuperMicro IPMI Auto Fan Control
 A pair of dirty little bash scripts to automate control of the fan speeds for a SuperMicro board using ipmitool. 
